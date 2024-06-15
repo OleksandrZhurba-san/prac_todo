@@ -1,0 +1,25 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+.main {
+  margin: 0 auto;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+}
+p {
+  border: 1px solid black;
+}
+
+.note {
+  display: flex;
+  justify-content: space-between;
+}
+
+span {
+  min-width: 20px;
+  background-color: red;
+}

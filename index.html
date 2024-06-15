@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="main">
+      <h1>New TODO</h1>
+      <form>
+        <input type="text" class="description" />
+        <input type="datetime-local" class="date" />
+        <div class="buttons">
+          <button type="submit" class="add"></button>
+          <button type="reset" class="clear">clear</button>
+        </div>
+      </form>
+
+      <textarea name="notes" class="notes" cols="30" rows="10"></textarea>
+      <button class="save">save</button>
+      <div class="notes-grid"></div>
+    </div>
+    <script src="scripts/index.js"></script>
+  </body>
+</html>
