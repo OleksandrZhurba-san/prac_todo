@@ -2,24 +2,132 @@
   margin: 0px;
   padding: 0px;
   box-sizing: border-box;
+  font-family: "Open Sans", sans-serif;
 }
 
 .main {
   margin: 0 auto;
-  max-width: 300px;
+  max-width: 428px;
   display: flex;
   flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  border: 2px solid black;
 }
-p {
-  border: 1px solid black;
+h1 {
+  font-size: 20px;
+  font-weight: 500;
+}
+form {
+  background-color: #f7f2fa;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  border-radius: 16px;
 }
 
-.note {
+.description,
+.date {
+  background-color: #f7f2fa;
+  padding: 16px;
+  border-radius: 6px;
+  border: 1px solid black;
+  font-size: 16px;
+}
+.buttons {
+  display: flex;
+  justify-content: end;
+  gap: 8px;
+}
+.buttons > button {
+  border-radius: 100px;
+  min-height: 40px;
+  min-width: 114px;
+  font-size: 14px;
+  padding: 10px 24px;
+  cursor: pointer;
+}
+.add {
+  border: none;
+  background-color: #6750a4;
+  color: white;
+}
+.add:hover {
+  background-color: #5b4792;
+}
+.clear {
+  background-color: #f7f2fa;
+  color: #6750a4;
+  border: 1px solid grey;
+}
+.clear:hover {
+  background-color: #efeaf2;
+}
+
+.filter-container {
   display: flex;
   justify-content: space-between;
 }
+.filter-container > button {
+  border: 1px solid grey;
+  width: 100%;
+  min-height: 40px;
+  text-align: center;
+  background-color: white;
+  position: relative;
+}
+.filter-container > .all {
+  border-radius: 100px 0px 0px 100px;
+}
+.filter-container > .finished {
+  border-radius: 0px 100px 100px 0px;
+}
 
-span {
-  min-width: 20px;
-  background-color: red;
+#active-filter {
+  background-color: #e8def8;
+}
+
+#active-filter::before {
+  content: "\2713";
+  /* background-image: url("/assets/icons/check-solid.svg");
+  background-repeat: no-repeat;
+  display: block;
+   background-size: 12px 12px;
+   width: 12px;
+  height: 12px; */
+}
+.input {
+  margin: 8px;
+}
+input[type="checkbox"] {
+  accent-color: #f7f2fa;
+}
+ul {
+  list-style-type: none;
+}
+li {
+  display: flex;
+  align-items: center;
+  border-radius: 16px;
+  background-color: #f7f2fa;
+  gap: 8px;
+  padding: 8px;
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.content > p {
+  font-size: 14px;
+  font-weight: 400;
+}
+.content > h3 {
+  font-size: 16px;
+  font-weight: 400;
+}
+.checked {
+  color: rgba(0, 0, 0, 0.628);
+  text-decoration: line-through;
 }
