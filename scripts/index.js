@@ -1,19 +1,15 @@
-// const notesField = document.querySelector(".notes");
-// const saveBtn = document.querySelector(".save");
-// const notesGrid = document.querySelector(".notes-grid");
 const form = document.querySelector("form");
 const descriptionInput = document.querySelector(".description");
 const dateInput = document.querySelector(".date");
 const addBtn = document.querySelector(".add");
 const clearBtn = document.querySelector(".clear");
 const todoList = document.querySelector(".todo-list");
+const allFilter = document.querySelector(".all");
+const activeFilter = document.querySelector(".active");
+const finishedFilter = document.querySelector(".finished");
+const searchInput = document.querySelector(".search");
 
 const tasksStorage = JSON.parse(localStorage.getItem("notes")) || [];
-// if (tasksStorage.length !== 0) {
-//   tasksStorage.forEach((task) => {
-//     createTask(task);
-//   });
-// }
 
 function generateRandomId() {
   return Math.floor(Math.random() * 88888888888888);
@@ -25,7 +21,6 @@ function setId() {
   } else {
     id = tasksStorage[tasksStorage.length - 1].id + 1;
   }
-  console.log(id);
   return id;
 }
 
@@ -44,8 +39,14 @@ function createTask(taskObject) {
   inputContainer.setAttribute("class", "input");
   contentContainer.setAttribute("class", "content");
   checkBox.setAttribute("type", "checkbox");
-  // checkBox.setAttribute("checked", taskObject.complete.toString());
   checkBox.checked = taskObject.complete;
+  if (taskObject.complete) {
+    taskDate.classList.add("checked");
+    taskDescription.classList.add("checked");
+  } else {
+    taskDate.classList.remove("checked");
+    taskDescription.classList.remove("checked");
+  }
   taskDescription.textContent = taskObject.description;
   taskDate.textContent = taskObject.date;
   liContainer.setAttribute("data-id", taskObject.id);
@@ -53,18 +54,47 @@ function createTask(taskObject) {
   contentContainer.append(taskDate, taskDescription);
   liContainer.append(inputContainer, contentContainer);
   todoList.append(liContainer);
-  // checkBox.addEventListener("change", (event) => {});
-
-  // note.addEventListener("click", (event) => {
-  //   notesGrid.removeChild(event.target);
-  //   const noteIndex = tasksStorage.map((e) => e.id).indexOf(id);
-  //   if (noteIndex != -1) {
-  //     tasksStorage.splice(noteIndex, 1);
-  //     localStorage.setItem("notes", JSON.stringify(tasksStorage));
-  //   }
-  // });
-  // return note;
+  checkBox.addEventListener("change", (event) => {
+    taskDate.classList.toggle("checked");
+    taskDescription.classList.toggle("checked");
+    let complete = false;
+    if (taskObject.complete === false) {
+      complete = true;
+      taskObject.complete = true;
+    } else {
+      complete = false;
+      taskObject.complete = false;
+    }
+    let objIndex = tasksStorage.findIndex((obj) => obj.id === taskObject.id);
+    tasksStorage[objIndex].complete = complete;
+    if (document.querySelector("#active-filter") !== null) {
+      let getActiveFilter = document
+        .querySelector("#active-filter")
+        .getAttribute("class");
+      if (getActiveFilter === "finished" && !complete) {
+        document
+          .querySelector(`[data-id='${tasksStorage[objIndex].id}']`)
+          .classList.add("display-none");
+      } else if (getActiveFilter === "active" && complete) {
+        document
+          .querySelector(`[data-id='${tasksStorage[objIndex].id}']`)
+          .classList.add("display-none");
+      } else {
+        resetFilters();
+      }
+    }
+    localStorage.setItem("notes", JSON.stringify(tasksStorage));
+  });
 }
+function resetFilters() {
+  document.querySelectorAll(".display-none").forEach((e) => {
+    e.classList.remove("display-none");
+  });
+}
+function searchTasks(tasksList, value) {}
+searchInput.addEventListener("input", () => {
+  searchTasks(tasksStorage, searchInput.value);
+});
 
 document.addEventListener("DOMContentLoaded", () => {
   if (tasksStorage.length != 0) {
@@ -72,6 +102,9 @@ document.addEventListener("DOMContentLoaded", () => {
       createTask(element);
     });
   }
+  allFilter.setAttribute("id", "active-filter");
+  finishedFilter.removeAttribute("id");
+  activeFilter.removeAttribute("id");
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -85,17 +118,39 @@ document.addEventListener("DOMContentLoaded", () => {
       };
       createTask(newTask);
       tasksStorage.push(newTask);
-      // createTask(notesField.value, id);
       localStorage.setItem("notes", JSON.stringify(tasksStorage));
-      // notesField.value = "";
     }
   });
+  activeFilter.addEventListener("click", () => {
+    resetFilters();
+    activeFilter.setAttribute("id", "active-filter");
+    finishedFilter.removeAttribute("id");
+    allFilter.removeAttribute("id");
+    tasksStorage.filter((e) => {
+      if (e.complete === true) {
+        document
+          .querySelector(`[data-id='${e.id}']`)
+          .classList.add("display-none");
+      }
+    });
+  });
+  allFilter.addEventListener("click", () => {
+    resetFilters();
+    allFilter.setAttribute("id", "active-filter");
+    finishedFilter.removeAttribute("id");
+    activeFilter.removeAttribute("id");
+  });
+  finishedFilter.addEventListener("click", () => {
+    resetFilters();
+    finishedFilter.setAttribute("id", "active-filter");
+    activeFilter.removeAttribute("id");
+    allFilter.removeAttribute("id");
+    tasksStorage.filter((e) => {
+      if (e.complete === false) {
+        document
+          .querySelector(`[data-id='${e.id}']`)
+          .classList.add("display-none");
+      }
+    });
+  });
 });
-
-// const testCheckBox = document.querySelector(".checkBox");
-// const p = document.querySelector("p");
-// const contentDescription = document.querySelector("h3");
-// testCheckBox.addEventListener("change", (event) => {
-//   p.classList.toggle("checked");
-//   contentDescription.classList.toggle("checked");
-// });

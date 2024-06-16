@@ -76,6 +76,7 @@ form {
   text-align: center;
   background-color: white;
   position: relative;
+  cursor: pointer;
 }
 .filter-container > .all {
   border-radius: 100px 0px 0px 100px;
@@ -105,6 +106,9 @@ input[type="checkbox"] {
 }
 ul {
   list-style-type: none;
+  gap: 12px;
+  display: flex;
+  flex-direction: column;
 }
 li {
   display: flex;
@@ -130,4 +134,7 @@ li {
 .checked {
   color: rgba(0, 0, 0, 0.628);
   text-decoration: line-through;
+}
+.display-none {
+  display: none;
 }
