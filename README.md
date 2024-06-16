@@ -2,8 +2,6 @@
 
 ## Practical work. Vanilla html\css\js
 Using localStorage to store TODOs
-Search feature in progress
+Search\remove\edit feature in progress
 
-
-https://github.com/OleksandrZhurba-san/prac_todo/assets/2105261/fad48419-3fba-44a3-b921-8dd74ecbe785
-
+![output](https://github.com/OleksandrZhurba-san/prac_todo/assets/2105261/83709c26-8a6d-4962-b27e-18814263b65a)
